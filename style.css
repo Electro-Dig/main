@@ -1,0 +1,304 @@
+/* === 全局样式 === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@keyframes backgroundScroll {
+    0% { background-position: 0% 0%; }
+    100% { background-position: -200% -200%; } /* Adjust values for speed/direction */
+}
+
+@keyframes aurora {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    font-family: 'Roboto Mono', 'Noto Sans SC', monospace, sans-serif;
+    background-color: #0a041a; /* Darker blue-purple base */
+    color: #e0e0e0;
+    line-height: 1.8;
+    padding: 2rem;
+    background-image: 
+        /* Layer 3: Subtle Aurora/Nebula (Slow animated gradient) */
+        radial-gradient(ellipse at 70% 80%, rgba(148, 0, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 20%, rgba(0, 250, 255, 0.15) 0%, transparent 50%),
+        /* Layer 2: Cyan Grid */
+        linear-gradient(rgba(0, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.08) 1px, transparent 1px),
+        /* Layer 1: Base dark color */
+        linear-gradient(#0a041a, #0a041a);
+    background-size:
+        150% 150%, /* Aurora size */
+        150% 150%, /* Aurora size */
+        40px 40px, /* Grid size */
+        40px 40px, /* Grid size */
+        100% 100%;
+    background-repeat: 
+        no-repeat, /* Aurora */
+        no-repeat, /* Aurora */
+        repeat, /* Grid */
+        repeat, /* Grid */
+        no-repeat;
+    animation: aurora 25s linear infinite; /* Aurora animation */
+    /* Optional: add backgroundScroll for grid if desired, but might be too much */
+    /* animation: backgroundScroll 30s linear infinite; */
+}
+
+a {
+    color: #00faff; /* Neon Cyan */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #ff00ff; /* Neon Pink/Magenta on hover */
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+/* === 页眉样式 === */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3); /* Cyan border */
+}
+
+header h1 {
+    font-size: 2.8rem;
+    color: #fff;
+    /* Enhanced Neon Text Shadow */
+    text-shadow: 
+        0 0 5px #fff, 
+        0 0 10px #fff, 
+        0 0 15px #00faff, 
+        0 0 20px #00faff, 
+        0 0 25px #00faff, 
+        0 0 30px #9400ff, /* Purple hint */
+        0 0 35px #9400ff;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+header h1::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2px;
+    /* Neon gradient */
+    background: linear-gradient(90deg, #00faff, #9400ff);
+    margin: 1rem auto 0;
+    box-shadow: 0 0 5px #00faff, 0 0 8px #9400ff;
+}
+
+header .subtitle {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    font-style: italic;
+    text-shadow: 0 0 3px rgba(0, 255, 255, 0.3);
+}
+
+/* === 导航网格 === */
+.navigation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* === 卡片样式 === */
+@keyframes neonBorder {
+    0% { box-shadow: 0 0 5px #00faff, 0 0 10px #00faff, 0 0 15px #00faff, inset 0 0 5px rgba(0, 255, 255, 0.5); }
+    33% { box-shadow: 0 0 5px #9400ff, 0 0 10px #9400ff, 0 0 15px #9400ff, inset 0 0 5px rgba(148, 0, 255, 0.5); }
+    66% { box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, inset 0 0 5px rgba(255, 0, 255, 0.5); }
+    100% { box-shadow: 0 0 5px #00faff, 0 0 10px #00faff, 0 0 15px #00faff, inset 0 0 5px rgba(0, 255, 255, 0.5); }
+}
+
+@keyframes subtleGlitch {
+    0% { transform: translate(0, 0); opacity: 1; }
+    25% { transform: translate(1px, -1px); opacity: 0.9; }
+    50% { transform: translate(-1px, 1px); opacity: 1; }
+    75% { transform: translate(1px, 1px); opacity: 0.9; }
+    100% { transform: translate(0, 0); opacity: 1; }
+}
+
+.card {
+    background-color: rgba(10, 8, 40, 0.75); /* Semi-transparent dark bg */
+    border: none; /* Remove default border */
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Keep transform transition */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    backdrop-filter: blur(5px);
+    position: relative; /* Needed for pseudo-elements if used */
+    overflow: hidden; /* Good practice with shadows/borders */
+    /* Apply neon border animation */
+    animation: neonBorder 5s linear infinite;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02); /* Slightly enhance hover */
+    background-color: rgba(30, 20, 70, 0.85); /* Slightly lighter/purpler on hover */
+    /* Override animation shadow with a static bright one on hover, or let it continue */
+    /* box-shadow: 0 0 8px #fff, 0 0 15px #00faff, 0 0 20px #00faff; */
+}
+
+.card:active {
+    transform: translateY(0) scale(0.98);
+    /* Keep animation or define active shadow */
+}
+
+.card-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 255, 255, 0.1); /* Cyan bg */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 255, 255, 0.4); /* Cyan border */
+    color: #00faff; /* Neon Cyan icon color */
+    text-shadow: 0 0 5px #00faff;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    text-shadow: 0 0 3px #fff, 0 0 6px #00faff; /* Neon text shadow */
+    transition: transform 0.1s ease-in-out; /* For glitch effect */
+}
+
+.card:hover h2 {
+    /* Apply subtle glitch animation on card hover */
+    animation: subtleGlitch 0.2s linear 2; /* Run twice quickly */
+}
+
+.card p {
+    font-size: 1rem;
+    color: #b0b0b0;
+}
+
+/* === 详细页面样式 (Apply similar principles if needed) === */
+/* Existing styles for .content-page, .pioneer-profile etc. might need adjustments */
+/* Example: Make back links neon */
+.back-link a, /* Existing style */
+.content-container .back-link /* New style for subpages */
+{
+    color: #00faff;
+    text-decoration: none;
+    border: 1px solid #00faff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: rgba(0, 255, 255, 0.1);
+    display: inline-block; /* Ensure it behaves like a button */
+    margin-bottom: 20px; /* Consistent margin */
+}
+
+.back-link a:hover,
+.content-container .back-link:hover
+{
+    background-color: #00faff;
+    color: #0a041a; /* Dark base color text */
+    box-shadow: 0 0 8px #00faff;
+}
+
+/* Adjust specific page headings if needed */
+.content-container h1 {
+     color: #fff;
+     text-shadow:
+         0 0 5px #fff,
+         0 0 10px #fff,
+         0 0 15px #00faff,
+         0 0 20px #00faff;
+     margin-bottom: 1.5rem;
+     border-bottom: 2px solid #00faff;
+     padding-bottom: 0.5rem;
+}
+
+.content-section h2, /* Reuse style */
+.content-container h2 /* Apply to pioneer/genre list h2 */
+{
+    color: #e0e0e0;
+    border-bottom: 1px solid #00faff;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 4px rgba(0, 255, 255, 0.7);
+}
+
+.content-section h3, /* Reuse style */
+.content-container h3 /* Apply to pioneer/genre list h3 */
+{
+    color: #c0c0ff; /* Lighter purple/blue */
+    margin-top: 25px;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 3px rgba(148, 0, 255, 0.5);
+}
+
+/* === 页脚样式 === */
+footer {
+    text-align: center;
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 255, 255, 0.3); /* Cyan border */
+    font-size: 0.9rem;
+    color: #888;
+}
+
+footer a {
+    color: #aaa;
+}
+
+footer a:hover {
+    color: #00faff; /* Neon Cyan */
+}
+
+/* === 响应式设计 === */
+/* (Keep existing media queries, maybe adjust card padding/gap if needed) */
+@media (max-width: 768px) {
+    body {
+        padding: 1.5rem;
+    }
+    
+    header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .navigation-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .navigation-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+}
